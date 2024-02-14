@@ -1,5 +1,5 @@
 
-from usuarios import acciones
+import usuarios.acciones as acciones
 
 print("""
       
