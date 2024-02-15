@@ -1,19 +1,16 @@
-import mysql.connector
+
 import datetime
 import hashlib
-database = mysql.connector.connect(
 
-    host='localhost',
-    user='root',
-    passwd='',
-    database='master_python',
-    port=3306
-)
+import usuarios.conexion as conexion
 
-# print(database)
 
-# buffered muchas consultas con el cursor
-cursor = database.cursor(buffered=True)
+connect = conexion.conectar()
+
+
+database = connect[0]
+
+cursor = connect[1]
 
 
 class Usuario:
@@ -44,4 +41,18 @@ class Usuario:
         return result
 
     def identificar(self):
-        pass
+
+        # consulta para comprobrar si existe el usuario
+        sql = 'SELECT * FROM usuarios WHERE email = %s AND password = %s'
+
+        cifrado = hashlib.sha256()
+        # el valor debe ser en bytes
+        cifrado.update(self.password.encode('utf8'))
+
+        usuario = (self.email, cifrado.hexdigest())
+
+        cursor.execute(sql, usuario)
+
+        result = cursor.fetchone()
+
+        return result

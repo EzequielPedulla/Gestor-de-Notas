@@ -20,5 +20,22 @@ class ManejarAcciones:
 
     def login(self):
         print('Identificate en el sistema...')
-        self.email = input('Introduce tu email: ')
-        self.password = input('introduce tu contraseña:  ')
+
+        try:
+            self.email = input('Introduce tu email: ')
+            self.password = input('introduce tu contraseña:  ')
+
+            usuario = modelo.Usuario('', '', self.email, self.password)
+
+            login = usuario.identificar()
+
+            if self.email == login[3]:
+                print(
+                    f'Bienvenido {login[1]} te has registrado  el {login[5]}')
+        except Exception as e:
+            # print(type(e))
+            # print(type(e).__name__)
+            print(f'Login incorrecto intentar mas tarde')
+
+    def proximasAcciones(self, usuarios):
+        pass
