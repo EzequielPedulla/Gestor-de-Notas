@@ -32,10 +32,31 @@ class ManejarAcciones:
             if self.email == login[3]:
                 print(
                     f'Bienvenido {login[1]} te has registrado  el {login[5]}')
+                self.proximasAcciones(login)
         except Exception as e:
             # print(type(e))
             # print(type(e).__name__)
             print(f'Login incorrecto intentar mas tarde')
 
-    def proximasAcciones(self, usuarios):
-        pass
+    def proximasAcciones(self, usuario):
+        print('''
+              -Crear nota (crear)
+              -Mostrar notas (mostrar)
+              -Eliminar notas (eliminar)
+              -Salir (salir)
+              ''')
+
+        accion = input('Que quieres hacer ?: ')
+
+        if accion == 'crear':
+            print('Creando...')
+            self.proximasAcciones(usuario)
+        elif accion == 'mostrar':
+            print('Mostrando...')
+        elif accion == 'eliminar':
+            print('Eliminando...')
+        elif accion == 'salir':
+            print(f'\n Ok {usuario[1]},hasta pronto')
+            exit()
+        else:
+            print('Opcion no valida')
